@@ -1,4 +1,7 @@
 language: node_js
-services: mongodb
+node_js:
+- stable
+services: 
+- mongodb
 script:
 - npm run test;
