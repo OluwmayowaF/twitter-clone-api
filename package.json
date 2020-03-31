@@ -4,7 +4,7 @@
     "description": "A RESTFull API to clone some Twitter features - User SignUp, SignIn, Post Tweets, etc",
     "main": "app.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "dev": "cross-env NODE_ENV=development nodemon app.js"
     },
     "repository": {
@@ -37,8 +37,12 @@
         "nodemon": "^2.0.2"
     },
     "devDependencies": {
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.0",
+        "babel-jest": "^25.2.4",
         "eslint": "^6.8.0",
         "eslint-config-airbnb-base": "^14.1.0",
-        "eslint-plugin-import": "^2.20.2"
+        "eslint-plugin-import": "^2.20.2",
+        "jest": "^25.2.4"
     }
 }
