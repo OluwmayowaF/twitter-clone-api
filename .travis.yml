@@ -1,7 +1,10 @@
 language: node_js
 node_js:
 - stable
-services: 
+services:
 - mongodb
 script:
 - npm run test;
+env:
+  global:
+    secure: FoTznD1GfQnuhNX7ZFLbJze9xFA+7JYwi5WEgEN4ztAg+4LR9EXbkVtRDPWh1e5r/yYNd+rTwy3V5wUL8A+biwWi7NsJzEs0VHSsi6+81AwKg6ynKkzVHcxDDdvjPHYcdm/mjGrJKXJwSnywvur8wwGod0ZAQNwx818B+XO5hYbz6AJfJunklwvUOYL9tXL50qkeJ8fj4Vw3OHYPyjbTVQLqd1zSpvnif3fgk36Mnxo4Ysx6uc2MAOyGzagKEXlnuU6SWb4o5mxMXSKKuSKP7tKbWPHjqtcKaL5sk+JZpokuc+JOzbJCcni6f+OshQoV4EFkAQqbHtxOoUcZYwvb4+r/TVC2l/ommKPA1Wg8XbXLAK3egoxkj5bVE4Bp6Vlb+ZWUyX95AVC02ywwyk8b8nJEuQYRA+9ATkXM3LvmS+UcChBYusXbD6i3OT/g2ogFBOwA8TtWxuLU2lRPVHlrk20SyiWMtM5MgUycx5CjaQ7kZZlBp7H4QsgjHeXkzoZl5Q+lVL+wY/Z1Cef0qynci04AjZTbnNrvBYyhrgCRrEOTirR0evvLsZxb1sS4lelE73IZC41JK9zlor7X2V1nEN6eF+wpzg/9FWhiWxqKpvB1ADGK8B00gmMRMqluSxMuoQvxG0Z+04xoHdbEjat8G+93WleeA8wwE5E73hBuFRg=
