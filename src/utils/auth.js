@@ -1,9 +1,10 @@
 require('dotenv').config();
 
 const bcrpyt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const saltRounds = 10;
-const User = require('../model/User');
+// const User = require('../model/User');
 
 module.exports = {
 
@@ -71,9 +72,41 @@ module.exports = {
        * @returns {Boolean} return True or False
     */
 
-  comparePassword(hashPassword, password) {
-    return bcrpyt.compareSync(password, hashPassword);
+   comparePassword(hashPassword, password) {
+    return  bcrpyt.compareSync(password, hashPassword);
   },
+  /**
+   * Generate JSON Web token
+   * @param {int} id
+   * @returns {string} encoded JWT
+   */
+  generateToken(id) {
+    const options = {
+      expiresIn: '8h',
+      issuer: 'http://mays-twitter-clone.com',
+    };
+    const secret = process.env.JWT_SECRET;
+    const payload = { userId: id };
+    const token = jwt.sign(payload, secret, options);
+
+    return token;
+  },
+
+  /**
+   * Verify token
+   * @param {string} token
+   * @return {object} decoded token 
+   */
+  verifyToken(token) {
+    const options = {
+        expiresIn: '8h',
+        issuer: 'http://mays-twitter-clone.com',
+      };
+      const secret = process.env.JWT_SECRET;
+      const decoded = jwt.verify(token, secret, options);
+
+      return decoded
+  }
 
 
 };
