@@ -1,5 +1,6 @@
-require('dotenv').config();
+import { ErrorHandler } from './error';
 
+require('dotenv').config();
 const bcrpyt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -27,40 +28,6 @@ module.exports = {
     const regexTest = /\S+@\S+\.\S+/;
     return regexTest.test(email);
   },
-  /**
-     * Email already used to register
-     * @param {string} email
-     * @returns {boolean} returns true or false
-   */
-/*
-  async userEmailExists(email) {
-    await User.findOne( (user, err) => {
-        console.log(user)
-        if (user === null) {
-          return true;
-        }
-      });
-  },
-  */
-  /**
-   * Username already used to register
-   * @param {string} username
-   * @returns {boolean} returns true or false
-   */
-/*
-  async userUsernameExists(username) {
-    await User.findOne({ username }, (user) => {
-      if (user) {
-        return true;
-      }
-    });
-  },
-  */
-  /**
-       * Hash Password Method
-       * @param {string} password
-       * @returns {string} returns hashed password
-    */
 
   hashPassword(password) {
     return bcrpyt.hashSync(password, bcrpyt.genSaltSync(saltRounds));
@@ -72,8 +39,8 @@ module.exports = {
        * @returns {Boolean} return True or False
     */
 
-   comparePassword(hashPassword, password) {
-    return  bcrpyt.compareSync(password, hashPassword);
+  comparePassword(hashPassword, password) {
+    return bcrpyt.compareSync(password, hashPassword);
   },
   /**
    * Generate JSON Web token
@@ -95,18 +62,20 @@ module.exports = {
   /**
    * Verify token
    * @param {string} token
-   * @return {object} decoded token 
+   * @return {object} decoded token
    */
   verifyToken(token) {
     const options = {
-        expiresIn: '8h',
-        issuer: 'http://mays-twitter-clone.com',
-      };
-      const secret = process.env.JWT_SECRET;
+      expiresIn: '8h',
+      issuer: 'http://mays-twitter-clone.com',
+    };
+    const secret = process.env.JWT_SECRET;
+    try {
       const decoded = jwt.verify(token, secret, options);
-
-      return decoded
-  }
-
+      return decoded;
+    } catch (err) {
+      throw new ErrorHandler(401, 'Invalid Token', err);
+    }
+  },
 
 };

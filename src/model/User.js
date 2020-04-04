@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseHidden = require('mongoose-hidden')();
 
 // Create the user schema 
 const userSchema = new mongoose.Schema({
@@ -15,6 +16,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    hide: true,
   },
   firstname: {
     type: String,
@@ -32,6 +34,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const user = mongoose.model('users', userSchema);
+const user = mongoose.model('users', userSchema.plugin(mongooseHidden));
 
 module.exports = user;

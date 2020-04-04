@@ -1,8 +1,11 @@
-const controller = require('../controller/auth-controller');
+import controller from '../controller/auth-controller';
+import middleware from '../middleware/auth';
 
 module.exports = (router) => {
-  router.route('/users')
+  router.route('/users') // Registration Route
     .post(controller.register);
-  router.route('/users/login')
+  router.route('/users/login') // Login Route
     .post(controller.login);
+  router.route('/user') // Get current User
+    .get(middleware.validateToken, controller.getUser);
 };
