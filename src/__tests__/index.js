@@ -1,5 +1,15 @@
-// eslint-disable-next-line no-undef
-test('jest works properly!', () => {
-  // eslint-disable-next-line no-undef
-  expect(4).toBeLessThan(10);
+/* eslint-disable no-undef */
+const Helper = require('../utils/testHelper');
+
+const helper = new Helper();
+
+
+describe('Initial API test', () => {
+  it('Should return a welcome response', async (done) => {
+    const response = await helper.apiServer
+      .get('/');
+    expect(response.status).toBe(200);
+    expect(response.res.text).toBe('Welcome to my Twitter Clone API');
+    done();
+  });
 });
