@@ -2,6 +2,9 @@
     "name": "twitter-clone-api",
     "version": "1.0.0",
     "description": "A RESTFull API to clone some Twitter features - User SignUp, SignIn, Post Tweets, etc",
+    "engines": {
+        "node": "12.10.0"
+    },
     "main": "app.js",
     "scripts": {
         "test": "jest --collectCoverage --testTimeout=20000 --forceExit",
