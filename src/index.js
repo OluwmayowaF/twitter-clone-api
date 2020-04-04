@@ -25,7 +25,7 @@ mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then(() => console.log('Database Connected Successfully'))
   .catch((err) => console.log(err));
-
+console.log(db)
 // Configure Body Parser
 app.use(bodyParser.json({ type: 'application/json' }));
 app.use(bodyParser.urlencoded({
