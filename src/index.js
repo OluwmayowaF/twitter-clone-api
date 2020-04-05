@@ -4,22 +4,23 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import routes from './routes/index';
-import { ErrorHandler } from './utils/error';
+import ErrorHandler from './utils/error';
 
 require('dotenv').config();
 
 const environment = process.env.NODE_ENV;
-const stage = require('./config')[environment];
 
 const app = express();
 const router = express.Router(); // Setup express router
 
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const stage = require('./config')[environment];
 
 const db = stage.DBHost;
 const { port } = stage;
 
 
-console.log(db);
 // Connect to MongoDB
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
@@ -35,14 +36,10 @@ app.use(bodyParser.urlencoded({
 if (environment !== 'production') {
   app.use(logger('dev'));
 }
-
+app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  res.send('Welcome to my Twitter Clone API');
-});
-
-app.get('/error', (req, res) => {
-  throw new ErrorHandler(500, 'Internal server error');
+  res.render('pages/index');
 });
 
 
@@ -59,9 +56,12 @@ app.use((err, req, res, next) => {
     // Unknown server error. Response with stack trace for easier debugging
     response.stack = err.stack;
   }
-  return res.status(err.statusCode || 500).json(response);
+  return res.status(err.status || 500).json(response);
 });
 
+io.on('connection', () => {
+  console.log('a user is connected');
+});
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
