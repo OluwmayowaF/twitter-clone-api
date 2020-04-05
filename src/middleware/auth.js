@@ -1,4 +1,4 @@
-import { ErrorHandler } from '../utils/error';
+import ErrorHandler from '../utils/error';
 
 const { verifyToken } = require('../utils/auth');
 const User = require('../model/User');
