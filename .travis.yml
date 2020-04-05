@@ -4,13 +4,15 @@ node_js:
 services:
 - mongodb
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64>
+  ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
 script:
 - npm run test;
-after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+after_success:
+- npm run coverage
+- nyc report --reporter=text-lcov | coveralls
 env:
   global:
   - secure: gQqSmwRw7bijNvzVNN6gWHTLw+oRbGmMRbJillsv78Oto2n7oj98XVNzPw4E6WxMiB3Iw9OGBI4uNepyNWnSLrlX0MN/yt/olN5APDBhsytBzhkJ5Yy7lAZOS49kvAnvZeimLcF8O69LNlG9suBLVn+j/IlBRw8c7hnTuotCJgCVWkO4j5TtxjR8dCeB0OUuk8R8e2zVAezbN5LDB5Vydp8yEOYsM+hZvhpyeHM0ylINyogTDO5lPXkrw46TMflndll7gw04+Jhn2n/jSoW2uYqhR8XykN5dPuDudZgd5BbgU16/Cc2lUKEK2t93lxHUlliZX2d1uDoT7quOHSeDoIv3/uj+lSaE2GivPovWlU1YhdMJJ1fqWamnekbAvz7nfBo2A4KpzemcqbvCSOIIutkmNZQnuYvFBivyWU825Fhf8djg1V88eAqih5Tauu6aObrXDhBr+40eKxpbopAI8b0gAjbBFbXdCMyjFrgaml/Rxb+AgwMqBpT11p2n7Bnq+5HNnTH8hH5xi4fIm0p2QcH0xQxq3lNGUdpE2coG+WDSkMaVDc7e06WWTlXNOMxGI5PNFLWbRKXct972M4kYuL+7h9AZgSs2VROzYODNUzzIxbnUsT0LNOwETbnhvW/6bxlDz0m+HTo7M947OmRwkAxCJaymjpuq64iW6X8omCQ=
