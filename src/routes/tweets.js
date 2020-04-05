@@ -11,4 +11,6 @@ module.exports = (router) => {
     .get(middleware.validateToken, tweetController.viewSpecificTweet);
   router.route('/tweet/:id/reply')
     .post(middleware.validateToken, replyController.postReply);
+  router.route('/reply/:id')
+    .get(middleware.validateToken, replyController.viewReply);
 };
