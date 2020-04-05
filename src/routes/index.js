@@ -1,9 +1,9 @@
 const users = require('./users');
-//const tweets = require('./tweet');
+const tweets = require('./tweets');
 
 module.exports = (router) => {
   users(router);
-  //tweets(router);
+  tweets(router);
 
   return router;
 };
