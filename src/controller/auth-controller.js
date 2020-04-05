@@ -62,20 +62,19 @@ export default {
 
     // validate User Input
     if (!username) throw new ErrorHandler(400, 'Bad Request:Username  is required to login');
-    if (!(validPassword(password))) throw new ErrorHandler(400, 'Bad Request: Password is required to login');
+    if (!(validPassword(password))) throw new ErrorHandler(400, 'Bad Request: Password must have atleast 8 characters');
 
     // Find User in the datatbase
     const user = await User.findOne({ username: username.toLowerCase() });
     if (!user) {
-      throw new ErrorHandler(404, 'User with that email/username was not found');
+      throw new ErrorHandler(404, 'User with that username was not found');
     }
 
     // Confrim User Password
     const isPasswordCorrect = comparePassword(user.password, password);
     if (!isPasswordCorrect) {
-      throw new ErrorHandler(401, 'Invalid Password Please try again');
+      throw new ErrorHandler(401, 'Incorrect Password Please try again');
     }
-
     // eslint-disable-next-line no-underscore-dangle
     const token = generateToken(user._id);
     res.status(200).json({
