@@ -7,5 +7,7 @@ module.exports = (router) => {
   router.route('/users/login') // Login Route
     .post(controller.login);
   router.route('/user') // Get current User
-    .get(middleware.validateToken, controller.getUser);
+    .get(middleware.validateToken, controller.getLoggedInUser);
+  router.route('/user/:id') // Get current User
+    .get(middleware.validateToken, controller.getAUser);
 };

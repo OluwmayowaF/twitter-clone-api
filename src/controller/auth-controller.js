@@ -91,12 +91,21 @@ export default {
    * @returns {object} res object
    */
 
-  getUser: async (req, res) => {
+  getLoggedInUser: async (req, res) => {
     const { id } = req.user;
     const user = await User.findById(id);
     return res.status(200).json({
       status: 'Success',
       message: 'Logged in user details',
+      user,
+    });
+  },
+  getAUser: async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    return res.status(200).json({
+      status: 'Success',
+      message: 'Found User ',
       user,
     });
   },
