@@ -4,7 +4,7 @@ const { verifyToken } = require('../utils/auth');
 const User = require('../model/User');
 
 
-module.exports = {
+export default {
   // eslint-disable-next-line consistent-return
   async validateToken(req, res, next) {
     if (req.headers.authorization) {
