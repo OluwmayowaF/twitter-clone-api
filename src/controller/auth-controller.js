@@ -42,14 +42,14 @@ export default {
     });
 
     // Save User in the DB
-    await user.save((newUser) => {
+    await user.save((err, newUser) => {
+      if (err) throw new ErrorHandler(500, 'Something went wrong, please try again', err);
       res.status(200).json({
         status: 'Success',
         message: 'User has been registered succesfully',
         user: newUser,
       });
     });
-    //  Global Error handler would handle errors if any
   },
   /**
    * Users Login controller function

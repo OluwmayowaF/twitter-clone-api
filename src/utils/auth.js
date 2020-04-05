@@ -74,7 +74,7 @@ module.exports = {
       const decoded = jwt.verify(token, secret, options);
       return decoded;
     } catch (err) {
-      throw new ErrorHandler(401, 'Invalid Token', err);
+      throw new ErrorHandler(401, 'Invalid Token', err.message);
     }
   },
 
