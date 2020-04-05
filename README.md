@@ -1,9 +1,9 @@
 # Twitter-clone-api
-[![Build Status](https://travis-ci.com/OluwmayowaF/twitter-clone-api.svg?branch=master)](https://travis-ci.com/OluwmayowaF/twitter-clone-api)
-
-<a href="https://codeclimate.com/github/OluwmayowaF/twitter-clone-api/maintainability"><img src="https://api.codeclimate.com/v1/badges/55ba530f9dd8f21a49e5/maintainability" /></a>
+[![Build Status](https://travis-ci.com/OluwmayowaF/twitter-clone-api.svg?branch=master)](https://travis-ci.com/OluwmayowaF/twitter-clone-api) <a href="https://codeclimate.com/github/OluwmayowaF/twitter-clone-api/maintainability"><img src="https://api.codeclimate.com/v1/badges/55ba530f9dd8f21a49e5/maintainability" /></a> [![Coverage Status](https://coveralls.io/repos/github/OluwmayowaF/twitter-clone-api/badge.svg?branch=master)](https://coveralls.io/github/OluwmayowaF/twitter-clone-api?branch=master)
 
 
 
 
 A RESTful API to clone some Twitter features
+<a href='https://twitterclone-api.herokuapp.com/'>API Link</a>
+<a href='https://documenter.getpostman.com/view/9048286/SzYbzHbW?version=latest'>API Docs</a>
