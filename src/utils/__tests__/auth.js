@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-const {
+import {
   validPassword, validEmail, hashPassword, comparePassword, generateToken, verifyToken,
-} = require('../auth');
+} from '../auth';
 
 let hashedPassword;
 const id = 5;
@@ -68,7 +68,7 @@ describe('Token Generation works properly', () => {
   });
 });
 
-describe('Token Verification works properly and userId is returned', () => {
+describe('Token Verification works properly', () => {
   test('Test that a token string is generated', () => {
     const response = verifyToken(token);
     expect(response.userId).toBe(id);

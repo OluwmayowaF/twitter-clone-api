@@ -7,8 +7,8 @@
     },
     "main": "app.js",
     "scripts": {
-        "test": "jest --collectCoverage --testTimeout=20000 --forceExit",
         "dev": "cross-env NODE_ENV=development nodemon app.js",
+        "test": "jest --collectCoverage --testTimeout=20000 --watchAll",
         "test:ci": "jest",
         "build": "babel"
     },
@@ -40,6 +40,7 @@
         "cloudinary": "^1.21.0",
         "cross-env": "^7.0.2",
         "dotenv": "^8.2.0",
+        "ejs": "^3.0.2",
         "express": "^4.17.1",
         "express-async-errors": "^3.1.1",
         "express-fileupload": "^1.1.6",
@@ -48,6 +49,8 @@
         "mongoose-hidden": "^1.8.1",
         "morgan": "^1.10.0",
         "nodemon": "^2.0.2",
+        "socket-io": "^1.0.0",
+        "socket.io": "^2.3.0",
         "supertest": "^4.0.2"
     },
     "devDependencies": {
