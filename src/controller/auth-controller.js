@@ -24,7 +24,6 @@ export default {
     email = email.toLowerCase();
     firstname = !firstname ? null : firstname.toLowerCase();
     lastname = !lastname ? null : lastname.toLowerCase();
-
     // Validate User input
     if (!username || username.length < 1) throw new ErrorHandler(400, 'Bad Request: Please Provide Username');
     if (!validEmail(email)) throw new ErrorHandler(400, 'Bad Request:Please Provide valid Email');
@@ -40,7 +39,6 @@ export default {
     const user = new User({
       username, email, password, firstname, lastname,
     });
-
     // Save User in the DB
     await user.save((err, newUser) => {
       if (err) throw new ErrorHandler(500, 'Something went wrong, please try again', err);
