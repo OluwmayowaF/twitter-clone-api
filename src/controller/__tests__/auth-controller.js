@@ -1,22 +1,27 @@
 /* eslint-disable no-undef */
 import AuthController from '../auth-controller';
 
+const app = require('../../index');
+
 require('dotenv').config();
 
 process.env.NODE_ENV = 'test';
 
 const supertest = require('supertest');
-const app = require('../../index');
 
 const request = supertest(app);
 const { closeDatabase } = require('../../utils/testdbhandler');
 
+
 let token;
 let userId;
 
-afterAll(async () => {
+afterAll(async (done) => {
   await closeDatabase();
+  setTimeout(() => { process.exit(1); }, 3000);
+  done();
 });
+
 
 describe('Test User registration route', () => {
   test('No username for registration', async (done) => {
@@ -209,7 +214,6 @@ describe('Test Login route', () => {
 });
 describe('Test view logged in user route', () => {
   test('Returns logged in user with given token', async (done) => {
-   
     const result = await request.get('/api/v1/user').set('Authorization', token).catch((e) => e);
     expect(result.status).toBe(200);
     expect(result.body.message).toBe('Logged in user details');
@@ -232,7 +236,7 @@ describe('Test view logged in user route', () => {
 });
 describe('Test view a specific user route', () => {
   test('Returns logged in user with given token', async (done) => {
-      console.log(userId)
+    console.log(userId);
     const result = await request.get(`/api/v1/user/${userId}`).set('Authorization', token).catch((e) => e);
     expect(result.status).toBe(200);
     expect(result.body.message).toBe('Found User ');
