@@ -5,7 +5,7 @@ module.exports = {
   },
   test: {
     port: process.env.PORT || 8001,
-    DBHost: process.env.MONGO_URI,
+    DBHost: 'mongodb://127.0.0.1:27017/twitter-clone-test',
   },
   production: {
     port: process.env.PORT || 5000,

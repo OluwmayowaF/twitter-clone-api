@@ -1,7 +1,7 @@
 import Reply from '../model/Reply';
 import User from '../model/User';
 import Tweet from '../model/Tweet';
-import { ErrorHandler } from '../utils/error';
+import ErrorHandler  from '../utils/error';
 
 export default {
   postReply: async (req, res) => {

@@ -103,6 +103,7 @@ export default {
   getAUser: async (req, res) => {
     const { id } = req.params;
     const user = await User.findById(id);
+    if (!user) throw new ErrorHandler(404, 'User not found');
     return res.status(200).json({
       status: 'Success',
       message: 'Found User ',

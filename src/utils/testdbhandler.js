@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 const uri = 'mongodb://127.0.0.1:27017/twitter-clone-test';
 
 module.exports = {
-
+/*
   connect: async () => {
     await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
-  },
+  },*/
 
   /**
  * Drop database, close the connection and stop mongod.
@@ -20,9 +20,9 @@ module.exports = {
 
   /**
  * Remove all the data for all db collections.
- */
+ *//*
   clearDatabase: async (collection) => {
     await mongoose.connection.collection(collection).deleteMany({});
-  },
+  },*/
 
 };

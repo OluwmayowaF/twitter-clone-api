@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongooseHidden = require('mongoose-hidden')();
+const mongooseHidden = require('mongoose-hidden')({ defaultHidden: { password: true } });
 
 // Create the user schema 
 const userSchema = new mongoose.Schema({

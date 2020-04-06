@@ -1,4 +1,4 @@
-import { ErrorHandler } from '../utils/error';
+import ErrorHandler from '../utils/error';
 import Follow from '../model/Follow';
 
 export default {
@@ -12,14 +12,6 @@ export default {
     // check if already following
     const alreadyFollowing = Follow.findOne({ $and: [{ followerId }, { followedId }] });
     if (alreadyFollowing) throw new ErrorHandler(404, 'Already Following this user');
-    /* {
-      const followBack = alreadyFollowing.update({ $set: { followBack: true } }, { updatedAt: Date.now }, { new: true });
-      res.status(200).json({
-        status: 'Success',
-        message: 'Follow Sucessfully',
-        follow: followBack,
-      });
-    } */
     const follow = new Follow({
       followerId, followedId,
     });
