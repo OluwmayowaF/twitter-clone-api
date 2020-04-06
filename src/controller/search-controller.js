@@ -1,7 +1,7 @@
 import User from '../model/User';
 import Tweet from '../model/Tweet';
 import Reply from '../model/Reply';
-import  ErrorHandler  from '../utils/error';
+import ErrorHandler from '../utils/error';
 
 export default {
   search: async (req, res) => {

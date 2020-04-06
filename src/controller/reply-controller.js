@@ -6,12 +6,11 @@ import ErrorHandler  from '../utils/error';
 export default {
   postReply: async (req, res) => {
     const ownerId = req.user;
-    console.log(req.user);
     const tweetId = req.params.id;
     const { reply } = req.body;
 
+    if (!reply) throw new ErrorHandler(400, 'Please enter a reply')
     const tweet = await Tweet.findById({ _id: tweetId });
-    console.log(tweet);
     if (!tweet) throw new ErrorHandler(404, 'No tweet found');
     const postReply = new Reply({ ownerId, tweetId, reply });
     await postReply.save((err, newReply) => {
