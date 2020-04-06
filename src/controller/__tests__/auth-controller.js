@@ -18,7 +18,7 @@ let userId;
 
 afterAll(async (done) => {
   await closeDatabase();
-  setTimeout(() => { process.exit(1); }, 3000);
+  setTimeout(() => { process.exit(1); }, 10000);
   done();
 });
 
