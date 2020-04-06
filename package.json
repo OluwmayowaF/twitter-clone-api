@@ -9,7 +9,7 @@
     "scripts": {
         "dev": "cross-env NODE_ENV=development nodemon app.js",
         "test": "jest --collectCoverage --testTimeout=20000 --watchAll",
-        "test:ci": "jest --coverage && coveralls < coverage/collective/lcov.info",
+        "test:ci": "jest --coverage && coveralls < coverage/collective/lcov.info --forceExit",
         "build": "babel"
     },
     "repository": {
