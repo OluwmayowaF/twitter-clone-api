@@ -8,8 +8,8 @@
     "main": "app.js",
     "scripts": {
         "dev": "cross-env NODE_ENV=development nodemon app.js",
-        "test": "jest --collectCoverage --testTimeout=20000 --watchAll",
-        "test:ci": "jest --coverage && coveralls < coverage/collective/lcov.info",
+        "test": "jest --collectCoverage --testTimeout=20000 ",
+        "test:ci": "jest --testTimeout=20000 --coverage && coveralls < coverage/collective/lcov.info ",
         "build": "babel"
     },
     "repository": {
