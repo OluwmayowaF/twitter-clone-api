@@ -15,13 +15,13 @@ const { closeDatabase } = require('../../utils/testdbhandler');
 
 let token;
 let userId;
-
+/*
 afterAll(async (done) => {
   await closeDatabase();
   setTimeout(() => { process.exit(1); }, 10000);
   done();
 });
-
+*/
 
 describe('Test User registration route', () => {
   test('No username for registration', async (done) => {
