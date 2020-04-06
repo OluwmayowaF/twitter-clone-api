@@ -1,16 +1,16 @@
 /* eslint-disable no-undef */
 import AuthController from '../auth-controller';
 
-const app = require('../../index');
+//const app = require('../../index');
 
 require('dotenv').config();
 
 process.env.NODE_ENV = 'test';
 
-const supertest = require('supertest');
+//const supertest = require('supertest');
 
-const request = supertest(app);
-const { closeDatabase } = require('../../utils/testdbhandler');
+//const request = supertest(app);
+//const { closeDatabase } = require('../../utils/testdbhandler');
 
 
 let token;
@@ -110,7 +110,7 @@ describe('Test User registration route', () => {
     expect(result.status).toBe(400);
     expect(result.message).toBe('Bad Request: Password must have atleast 8 characters');
     done();
-  });
+  });/*
   test('User can register with the correct credentials', async (done) => {
     const response = await request.post('/api/v1/users').send({
       username: 'Gabby Samuels',
