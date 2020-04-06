@@ -1,27 +1,33 @@
 /* eslint-disable no-undef */
 import AuthController from '../auth-controller';
-
-//const app = require('../../index');
-
-require('dotenv').config();
+import Server from '../../server';
 
 process.env.NODE_ENV = 'test';
+let app;
 
-//const supertest = require('supertest');
+require('dotenv').config();
+const supertest = require('supertest');
 
-//const request = supertest(app);
-//const { closeDatabase } = require('../../utils/testdbhandler');
+let request;
 
+const { closeDatabase } = require('../../utils/testdbhandler');
 
 let token;
 let userId;
-/*
+
+
+beforeAll(async (done) =>{
+  app = await Server.start();
+  request = supertest(app);
+  done();
+  
+});
 afterAll(async (done) => {
   await closeDatabase();
-  setTimeout(() => { process.exit(1); }, 10000);
+  await app.close();
   done();
 });
-*/
+
 
 describe('Test User registration route', () => {
   test('No username for registration', async (done) => {
@@ -110,7 +116,7 @@ describe('Test User registration route', () => {
     expect(result.status).toBe(400);
     expect(result.message).toBe('Bad Request: Password must have atleast 8 characters');
     done();
-  });/*
+  });
   test('User can register with the correct credentials', async (done) => {
     const response = await request.post('/api/v1/users').send({
       username: 'Gabby Samuels',
@@ -172,7 +178,7 @@ describe('Test Login route', () => {
     expect(result.status).toBe(400);
     expect(result.message).toBe('Bad Request: Password must have atleast 8 characters');
     done();
-  });/*
+  });
   test('User can login with the correct credentails', async (done) => {
     await request.post('/api/v1/users').send({
       username: 'Sunny',
@@ -241,5 +247,5 @@ describe('Test view a specific user route', () => {
     expect(result.status).toBe(200);
     expect(result.body.message).toBe('Found User ');
     done();
-  });*/
+  });
 });
