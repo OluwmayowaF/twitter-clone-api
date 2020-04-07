@@ -26,7 +26,7 @@ test('Test base route', async () => {
   const result = await request.get('/').catch((e) => e);
   expect(result.status).toBe(200);
 });
-test('Test that invalid route error is handled properlt', async () => {
+test('Test that invalid route error is handled properly', async () => {
   const result = await request.get('/people').catch((e) => e);
   expect(result.status).toBe(404);
 });

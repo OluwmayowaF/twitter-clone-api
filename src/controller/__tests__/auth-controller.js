@@ -217,34 +217,3 @@ describe('Test Login route', () => {
     done();
   });
 });
-describe('Test view logged in user route', () => {
-  test('Returns logged in user with given token', async (done) => {
-    const result = await request.get('/api/v1/user').set('Authorization', token).catch((e) => e);
-    expect(result.status).toBe(200);
-    expect(result.body.message).toBe('Logged in user details');
-    done();
-  });
-  test('Returns an authorization error if no auth token is set', async (done) => {
-    const result = await request.get('/api/v1/user').set('Authorization', '').catch((e) => e);
-
-    expect(result.status).toBe(401);
-    expect(result.body.message).toBe('Authorization Token not found');
-    done();
-  });
-  test('Returns an authorization error if no auth token is set', async (done) => {
-    const result = await request.get('/api/v1/user').set('Authorization', 'ggvdtghjhygy').catch((e) => e);
-
-    expect(result.status).toBe(401);
-    expect(result.body.message).toBe('Invalid Token');
-    done();
-  });
-});
-describe('Test view a specific user route', () => {
-  test('Returns logged in user with given token', async (done) => {
-    console.log(userId);
-    const result = await request.get(`/api/v1/user/${userId}`).set('Authorization', token).catch((e) => e);
-    expect(result.status).toBe(200);
-    expect(result.body.message).toBe('Found User ');
-    done();
-  });
-});
