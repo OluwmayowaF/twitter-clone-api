@@ -5,6 +5,10 @@
 
 As the project title suggests this is a RESTFul API that mimics some twitter features such as - User registration, User login, tweets post, reply to tweets, follow other users, view own timeline and search.  
 
+- <a href ='https://twitterclone-api.herokuapp.com/'>API Link</a> 
+
+- <a href='https://documenter.getpostman.com/view/9048286/SzYbzHbW?version=latest'>Postman API Documentation</a> 
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -33,7 +37,7 @@ Note that nodemon is installed, and it watches for file changes and refreshes th
 
 ## Approach to the project 
 
-I would briefly walk you through the approach adopted in building this project by breaking the project into Four parts - Authorization, Tweets, Reply and Relationships(Followers). 
+I would briefly walk you through the approach adopted in building this project by breaking the project into Five parts - Authorization, Tweets, Reply, Search and Relationships(Followers). 
 
 - Authorization 
  - Username, email and Password are required field for registration, the password(which must be atleast 8 characters long) is encrypted using bcrypt before storing in the database. The Username and Email are unique fields on the schema hence no two users can register with the same credentials. 
@@ -47,8 +51,12 @@ I would briefly walk you through the approach adopted in building this project b
   - Reply 
    - Only logged in users auth authorized by the auth middleware are allowed to access this route to reply to a tweet. The tweet Id is passed as a paramater when replying to a tweet 
 
+  - Search
+    - Logged in users can search for tweets, users, or replies using this route. 
+
    - Followers 
-    -  Only logged in users auth authorized by the auth middleware are allowed to access this route to follow a user and follow users back. 
+    -  Only logged in users auth authorized by the auth middleware are allowed to access this route to follow a user and follow users back.
+    - Followers and following are used to filter a users timeline to tweets from this group 
     
 
 ## Running the tests
