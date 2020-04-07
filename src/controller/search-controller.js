@@ -18,7 +18,7 @@ export default {
     let users = await User.find({ username: { $regex: searchTerm, $options: 'i' } });
     let tweets = await Tweet.find({ tweet: { $regex: searchTerm, $options: 'i' } });
     let replies = await Reply.find({ reply: { $regex: searchTerm, $options: 'i' } });
-    if (users.length > 0 || tweets.length > 0 || replies.length > 0) {
+    if (users.length < 1 || tweets.length < 1 || replies.length < 1) {
       users = users.length > 0 ? users : 'no users found';
       tweets = tweets.length > 0 ? tweets : 'no tweets found';
       replies = replies.length > 0 ? replies : 'no replies found';

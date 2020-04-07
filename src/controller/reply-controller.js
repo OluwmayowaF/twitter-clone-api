@@ -18,10 +18,11 @@ export default {
     const tweet = await Tweet.findById({ _id: tweetId });
     if (!tweet) throw new ErrorHandler(404, 'No tweet found');
     const postReply = new Reply({ ownerId, tweetId, reply });
-    await postReply.save((err, newReply) => {
+    await postReply.save((err, savedReply) => {
       res.status(201).json({
         status: 'Success',
-        reply: newReply,
+        message: 'Reply has been posted',
+        reply: savedReply,
       });
     });
   },

@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import routes from './routes/index';
-import ErrorHandler from './utils/error';
 
 require('dotenv').config();
 
@@ -20,13 +19,9 @@ export default {
     mongoose
       .connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
       .then(() => console.log('Database Connected Successfully'))
-      .catch((err) => {
-        console.log(err);
-      });
-
+      .catch((err) => { console.log(err); });
 
     const app = express();
-    // Configure Body Parser
     app.use(bodyParser.json({ type: 'application/json' }));
     app.use(bodyParser.urlencoded({
       extended: true,
@@ -38,12 +33,10 @@ export default {
     app.use(cors());
     app.use(routes);
 
-
     return new Promise((resolve) => {
       const server = app.listen(port, () => {
         const originalClose = server.close.bind(server);
         server.close = () => new Promise((resolveClose) => {
-          // promisify server.close() to close gracefully and notify via resolveClose
           originalClose(resolveClose);
           console.log('Server Closing');
         });
