@@ -1,11 +1,17 @@
-import  ErrorHandler from '../utils/error';
-
-const Tweet = require('../model/Tweet');
-const User = require('../model/User');
-const Reply = require('../model/Reply');
-
+import ErrorHandler from '../utils/error';
+import Tweet from '../model/Tweet';
+import User from '../model/User';
+import Reply from '../model/Reply';
+import Follow from '../model/Follow';
+import followerHelper from '../utils/followerHelp';
 
 export default {
+  /**
+   *  Post a tweet
+   *  @param {object} req
+   * @param {object} res
+   * @returns {object} res object
+   */
   createTweet: async (req, res) => {
     const { tweet } = req.body;
     const ownerId = req.user.id;
@@ -18,9 +24,15 @@ export default {
       });
     });
   },
+  /**
+   * View all logged in users tweet
+   *  @param {object} req
+   * @param {object} res
+   * @returns {object} res object
+   */
   viewUserTweet: async (req, res) => {
     const ownerId = req.user.id;
-    const tweet = await Tweet.find({ ownerId });
+    const tweet = await Tweet.find({ ownerId }).sort('-createdAt');
     if (!tweet) throw new ErrorHandler(404, 'No post for logged in user');
     res.status(200).json({
       status: 'Success',
@@ -28,6 +40,12 @@ export default {
       tweet,
     });
   },
+  /**
+   * view a specific tweet
+   *  @param {object} req
+   * @param {object} res
+   * @returns {object} res object
+   */
   viewSpecificTweet: async (req, res) => {
     const { id } = req.params;
     const tweet = await Tweet.findById({ _id: id });
@@ -43,6 +61,27 @@ export default {
         replies,
         owner,
       },
+    });
+  },
+  /**
+   * View logged in users tweet and those of the thier followers and people they are following
+   *  @param {object} req
+   * @param {object} res
+   * @returns {object} res object
+   */
+  viewUserTimeline: async (req, res) => {
+    const { id } = req.user;
+    let validUserTweet = [id];
+
+    const getFollowers = await followerHelper.getFollowersId;
+    const getFollowing = await followerHelper.getFollowingId;
+    validUserTweet = validUserTweet.concat(getFollowers, getFollowing);
+
+    const tweets = await Tweet.find({ ownerId: { $in: validUserTweet } }).sort('-createdAt');
+    if (!tweets) throw new ErrorHandler(404, 'No Tweets are available to show');
+    res.status(200).json({
+      status: 'Success',
+      tweets,
     });
   },
 };

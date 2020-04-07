@@ -84,30 +84,4 @@ export default {
       token: `Bearer ${token}`,
     });
   },
-  /**
-   * Get Logged in user details
-   *  @param {object} req
-   * @param {object} res
-   * @returns {object} res object
-   */
-
-  getLoggedInUser: async (req, res) => {
-    const { id } = req.user;
-    const user = await User.findById(id);
-    return res.status(200).json({
-      status: 'Success',
-      message: 'Logged in user details',
-      user,
-    });
-  },
-  getAUser: async (req, res) => {
-    const { id } = req.params;
-    const user = await User.findById(id);
-    if (!user) throw new ErrorHandler(404, 'User not found');
-    return res.status(200).json({
-      status: 'Success',
-      message: 'Found User ',
-      user,
-    });
-  },
 };

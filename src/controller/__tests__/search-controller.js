@@ -14,7 +14,7 @@ const { closeDatabase } = require('../../utils/testdbhandler');
 
 let token;
 let tweetId;
-let replyId;
+
 
 beforeAll(async (done) => {
   app = await Server.start();
@@ -28,8 +28,8 @@ afterAll(async (done) => {
 });
 
 
-describe('Test Reply Post Route', () => {
-  test('Empty Replies cannot be posted', async (done) => {
+describe('Test Search Route', () => {
+  test('Response when no hit is found', async (done) => {
     await request.post('/api/v1/users').send({
       username: 'Sunny',
       password: 'sunny123456',
@@ -48,18 +48,22 @@ describe('Test Reply Post Route', () => {
     }).set('Authorization', token).catch((e) => e);
 
     tweetId = tweet.body.tweet._id;
-    const reply = await request.post(`/api/v1/tweet/${tweetId}/reply`).send({
+    await request.post(`/api/v1/tweet/${tweetId}/reply`).send({
       reply: 'i saw you',
     }).set('Authorization', token).catch((e) => e);
 
-    replyId = reply.body.reply._id;
 
-    const term = 'Sun';
+    const term = 'Moon';
     const search = await request.get(`/api/v1/search/${term}`).set('Authorization', token).catch((e) => e);
-    expect(search.status).toBe(200);
-    expect(search.body.tweetFound).toBe('no tweets found')
-    expect(search.body.repliesFound).toBe('no replies found')
+    expect(search.status).toBe(404);
+    expect(search.body.message).toBe(`No results found for ${term.toUpperCase()}`);
 
+    done();
+  });
+  test('Response when hit is found', async (done) => {
+    const testTerm = 'me';
+    const search = await request.get(`/api/v1/search/${testTerm}`).set('Authorization', token).catch((e) => e);
+    expect(search.status).toBe(200);
     done();
   });
 });

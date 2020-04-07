@@ -1,18 +1,13 @@
 const mongoose = require('mongoose');
 
 const followSchema = new mongoose.Schema({
-  followerId: {
+  followerId: { // Initiates the follow
     type: String,
     required: true,
   },
-  followedId: {
+  followedId: { // Account being followed
     type: String,
     required: true,
-  },
-  followBack: {
-    type: Boolean,
-    required: true,
-    default: false,
   },
   createdAt: {
     type: Date,
