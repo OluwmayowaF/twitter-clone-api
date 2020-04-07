@@ -65,6 +65,13 @@ describe('Test logged in user tweets route Route', () => {
     done();
   });
 });
+describe('Test logged in user can view timeline', () => {
+  test('Tweet can be posted', async (done) => {
+    const tweet = await request.get('/api/v1/timeline').set('Authorization', token).catch((e) => e);
+    expect(tweet.status).toBe(200);
+    done();
+  });
+});
 describe('Test view a specific tweet route', () => {
   test('Tweet can be posted', async (done) => {
     const tweet = await request.get(`/api/v1/tweet/${tweetId}`).set('Authorization', token).catch((e) => e);

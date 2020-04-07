@@ -16,11 +16,10 @@ let token;
 let userId;
 
 
-beforeAll(async (done) =>{
+beforeAll(async (done) => {
   app = await Server.start();
   request = supertest(app);
   done();
-  
 });
 afterAll(async (done) => {
   await closeDatabase();

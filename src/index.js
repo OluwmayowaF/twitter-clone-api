@@ -1,3 +1,3 @@
 import Server from './server';
 
-Server.start().then((server) => console.log(`Server now listening at: ${server.address().port} `));
+Server.start().then((server) => console.log(`Server now listening at localhost:${server.address().port} `));
