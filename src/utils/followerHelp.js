@@ -1,4 +1,5 @@
 import Follow from '../model/Follow';
+import User from '../model/User';
 
 export default {
   getFollowersId: async (id) => {
@@ -17,6 +18,14 @@ export default {
       followedId.push(following[i].followedId);
     }
     return followedId;
+  },
+
+  userExists: async (id) => {
+    const userExists = await User.findById(id);
+    if (userExists === null) {
+      return true;
+    }
+    return false;
   },
 
 };
