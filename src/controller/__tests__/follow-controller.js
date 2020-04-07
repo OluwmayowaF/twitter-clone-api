@@ -15,6 +15,7 @@ let token1;
 let userId1;
 let token2;
 let userId2;
+const deletedUser = '5e8c3017b9834ca8857fafa3';
 
 beforeAll(async (done) => {
   app = await Server.start();
@@ -48,14 +49,14 @@ describe('Test Follow a user ', () => {
 
     token1 = testUser1.body.token;
     userId1 = testUser1.body.user._id;
-    
+
     const testUser2 = await request.post('/api/v1/users/login').send({
       username: 'Mason',
       password: 'sunny123456',
     }).catch((e) => e);
 
     token2 = testUser2.body.token;
-    userId2= testUser2.body.user._id;
+    userId2 = testUser2.body.user._id;
 
     const tweet = await request.post('/api/v1/tweets').send({
       tweet: 'It wasnt me ooh',
@@ -66,26 +67,37 @@ describe('Test Follow a user ', () => {
     expect(followUser.status).toBe(400);
     done();
   });
-  test('Test users cannot  follow self', async (done) => {
+  test('Test users can follow other users', async (done) => {
     const followUser = await request.post(`/api/v1/follow/${userId2}`)
       .set('Authorization', token1).catch((e) => e);
     expect(followUser.status).toBe(200);
     done();
   });
-  test('Test get followers', async (done) => {
+  test('Test get followers route works', async (done) => {
     const followers = await request.get(`/api/v1/followers/${userId2}`)
       .set('Authorization', token1).catch((e) => e);
     expect(followers.status).toBe(200);
     done();
   });
-  test('Test get following', async (done) => {
+  test('Test get following route works', async (done) => {
     const following = await request.get(`/api/v1/following/${userId1}`)
       .set('Authorization', token1).catch((e) => e);
     expect(following.status).toBe(200);
     done();
   });
+  test('Test a deleted user cannot get following', async (done) => {
+    const following = await request.get(`/api/v1/following/${deletedUser}`)
+      .set('Authorization', token1).catch((e) => e);
+    expect(following.status).toBe(404);
+    done();
+  });
+  test('Test a deleted user cannot get followers', async (done) => {
+    const following = await request.get(`/api/v1/followers/${deletedUser}`)
+      .set('Authorization', token1).catch((e) => e);
+    expect(following.status).toBe(404);
+    done();
+  });
   test('Cannot follow a user that doesnt exist', async (done) => {
-    const deletedUser = '5e8c3017b9834ca8857fafa3';
     const following = await request.get(`/api/v1/follow/${deletedUser}`)
       .set('Authorization', token1).catch((e) => e);
     expect(following.status).toBe(404);

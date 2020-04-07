@@ -61,7 +61,6 @@ describe('Test logged in user tweets route Route', () => {
     const tweet = await request.get('/api/v1/tweets').set('Authorization', token).catch((e) => e);
     expect(tweet.status).toBe(200);
     tweetId = tweet.body.tweet[0]._id;
-    console.log(tweetId);
     done();
   });
 });
