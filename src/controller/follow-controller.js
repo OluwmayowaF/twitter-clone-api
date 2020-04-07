@@ -16,9 +16,8 @@ export default {
     const followerId = req.user.id;
     const followedId = req.params.id;
 
-    const followedIdExists = await User.findById(followedId);
-
-    if (followedIdExists === null) throw new ErrorHandler(404, 'User was not found, might have deleted account');
+    const followedIdExists = await followerHelp.userExists(followedId);
+    if (followedIdExists) throw new ErrorHandler(404, 'User was not found, might have deleted account');
     if (followedId === followerId) throw new ErrorHandler(400, 'You cannot follow yourself');
     // check if already following
     const alreadyFollowing = await Follow.findOne({ $and: [{ followerId }, { followedId }] });
@@ -29,9 +28,7 @@ export default {
 
     await follow.save((err, newFollow) => {
       res.status(200).json({
-        status: 'Success1',
-        message: 'Follow Sucessfully',
-        follow: newFollow,
+        message: 'Followed Sucessfully',
       });
     });
   },
@@ -43,9 +40,8 @@ export default {
    */
   getFollowers: async (req, res) => {
     const { id } = req.params;
-    const userExists = await User.findById(id);
 
-    if (userExists === null) throw new ErrorHandler(404, 'User was not found, might have deleted account');
+    if (await followerHelp.userExists(id)) throw new ErrorHandler(404, 'User was not found, might have deleted account');
     const followersId = await followerHelp.getFollowersId(id);
 
     if (followersId.length < 1) throw new ErrorHandler(404, 'User has no followers');
@@ -63,10 +59,9 @@ export default {
    */
   getFollowing: async (req, res) => {
     const { id } = req.params;
-    const userExists = await User.findById(id);
+    const userExists = await followerHelp.userExists(id);
 
-    if (userExists === null) throw new ErrorHandler(404, 'User was not found, might have deleted account');
-
+    if (userExists) throw new ErrorHandler(404, 'User was not found, might have deleted account');
     const followedId = await followerHelp.getFollowingId(id);
     if (followedId.length < 1) throw new ErrorHandler(404, 'User has not followed anyone');
     const following = await User.find({ _id: { $in: followedId } });
